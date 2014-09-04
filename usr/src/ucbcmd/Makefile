@@ -88,6 +88,7 @@ DICTLINK = $(ROOTUSR)/dict
 LINKDEST=	../bin/$(@F)
 
 BINLINKS=		\
+	Mail		\
 	arch		\
 	basename	\
 	clear		\
@@ -158,6 +159,7 @@ $(ROOTETC)/termcap :=	LINKDEST= ../usr/share/lib/termcap
 $(ROOTBIN)/vi :=	LINKDEST= ../bin/edit
 $(ROOTBIN)/view :=	LINKDEST= ../bin/edit
 $(ROOTBIN)/mail :=	LINKDEST= ../bin/mailx
+$(ROOTBIN)/Mail :=	LINKDEST= ../bin/mailx
 
 .KEEP_STATE:
 
