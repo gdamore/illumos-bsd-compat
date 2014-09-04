@@ -106,6 +106,11 @@ BINLINKS=		\
 	hostname	\
 	ln		\
 	logger		\
+	lpc		\
+	lpq		\
+	lpr		\
+	lprm		\
+	lptest		\
 	mach		\
 	mail		\
 	more		\
