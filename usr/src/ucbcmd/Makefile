@@ -39,6 +39,7 @@ COMMON_SUBDIRS=		\
 	df		\
 	du		\
 	echo		\
+	etc		\
 	expr		\
 	fastboot	\
 	fasthalt	\
@@ -106,6 +107,7 @@ BINLINKS=		\
 	ln		\
 	logger		\
 	mach		\
+	mail		\
 	more		\
 	page		\
 	pagesize	\
@@ -139,8 +141,7 @@ BINLINKS=		\
 
 ROOTBINLINKS = $(BINLINKS:%=$(ROOTBIN)/%)
 
-OTHERLINKS = $(ROOTETC)/termcap \
-		$(ROOTSHLIB)/zoneinfo/posixrules
+OTHERLINKS = $(ROOTETC)/termcap
 
 $(S5LINK) :=		LINKDEST= bin
 $(DICTLINK) :=		LINKDEST= share/lib/dict
@@ -151,7 +152,7 @@ $(ROOTBIN)/quota :=	LINKDEST= ../lib/fs/ufs/quota
 $(ROOTETC)/termcap :=	LINKDEST= ../usr/share/lib/termcap
 $(ROOTBIN)/vi :=	LINKDEST= ../bin/edit
 $(ROOTBIN)/view :=	LINKDEST= ../bin/edit
-$(ROOTSHLIB)/zoneinfo/posixrules := LINKDEST= US/Eastern
+$(ROOTBIN)/mail :=	LINKDEST= ../bin/mailx
 
 .KEEP_STATE:
 

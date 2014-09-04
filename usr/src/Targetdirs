@@ -50,13 +50,14 @@ i386_DIRS=
 sparc_DIRS=
 
 DIRS= \
-	$($(MACH)_DIRS) \
+	/etc \
 	/usr  \
 	/usr/ucb \
 	/usr/ucblib \
 	/usr/share \
 	/usr/share/man \
 	/usr/share/man/man1b
+	$($(MACH)_DIRS)
 
 sparcv9_DIRS64=
 

@@ -115,7 +115,6 @@ legacy pkg=SUNWscpr \
 legacy pkg=SUNWscpu \
     desc="utilities for user interface and source build compatibility with SunOS 4.x" \
     name="Source Compatibility, (Usr)"
-license cr_Sun license=cr_Sun
 license lic_CDDL license=lic_CDDL
 license usr/src/ucbcmd/echo/THIRDPARTYLICENSE \
     license=usr/src/ucbcmd/echo/THIRDPARTYLICENSE

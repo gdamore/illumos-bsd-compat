@@ -14,7 +14,21 @@ following to be installed on the build system:
 
 	* pkg:/developer/build/onbld
 
+Furthermore, "make all" will fail if run by itself on a system unless
+
+	* pkg:/compatibility/ucb
+
+is installed.  Alternatively, you can run "make install" which will populate
+the proto area properly so the -lucb library can be found by the components
+that need it.
+
 Also, you'll need the appropriate C++ and C compilers.  It should use the
 same as illumos-gate to build.
 
 You'll want to use +t as an argument to bldenv, as we don't have tools.
+
+None of these tools or the libraries have received more than cursory testing.
+I don't use them, and I discourage their use in general.  Most people would
+be better off if these are *NOT* installed on the system.  If you think
+you need them, please consider carefully why that is, and if you might not
+better be served by adopting newer alternatives.

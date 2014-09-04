@@ -18,40 +18,37 @@
 #
 # CDDL HEADER END
 #
-
-# Copyright (c) 2003, 2010, Oracle and/or its affiliates. All rights reserved.
-# Copyright (c) 2012 by Delphix. All rights reserved.
+#
 # Copyright 2014 Garrett D'Amore <garrett@damore.org>
-
-# include global definitions
-include Makefile.master
-
 #
-# As pieces are made lint-clean, add them here so the nightly build
-# can be used to keep them that way.
+# Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
+# Use is subject to license terms.
 #
-COMMON_SUBDIRS = \
-	ucbcmd/biff \
-	ucbcmd/echo \
-	ucbcmd/groups \
-	ucbcmd/mkstr \
-	ucbcmd/sum \
-	ucbcmd/test
 
+PROG=
+MAILRC= Mail.rc
 
-i386_SUBDIRS= 
+include ../Makefile.ucbcmd
 
-sparc_SUBDIRS= 
+ROOTETCMAIL= $(ROOTETC)/mail
+ROOTETCMAILRC= $(MAILRC:%=$(ROOTETCMAIL)/%)
 
-LINTSUBDIRS= $(COMMON_SUBDIRS) $($(MACH)_SUBDIRS)
+$(ROOTETCMAILRC) :=	FILEMODE =	$(LIBFILEMODE)
 
-.PARALLEL:	$(LINTSUBDIRS)
+.KEEP_STATE:
 
-lint:		subdirs
+all: $(MAILRC)
 
-subdirs:	$(LINTSUBDIRS)
+install: all $(ROOTETCMAILRC)
 
-$(LINTSUBDIRS):	FRC
-	@cd $@; pwd; $(MAKE) lint
+clean:
+lint:
+_msg:
 
-FRC:
+$(ROOTETCMAIL):
+	$(INS.dir)
+
+$(ROOTETCMAIL)/%: % $(ROOTETCMAIL)
+	$(INS.file)
+
+include ../Makefile.ucbtarg
