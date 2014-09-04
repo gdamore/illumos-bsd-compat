@@ -1,0 +1,19 @@
+illumos-bsd-compat README - Sep 3, 2014.
+
+Copyright 2014 Garrett D'Amore <garrett@damore.org>
+
+This tree is an extraction of some of the remaining ucb compatibility code
+from illumos-gate.
+
+These are the utilities that are not really "intrinsic" to illumos, but
+which folks may still use.  The idea is that this represents a new
+"consolidation" separate from illumos proper.
+
+This builds like illumos-gate, and has packages.  However, it needs the
+following to be installed on the build system:
+
+	* pkg:/developer/build/onbld
+
+Also, you'll need the appropriate C++ and C compilers.  It should use the
+same as illumos-gate to build.
+

@@ -1,0 +1,111 @@
+# CDDL HEADER START
+#
+# The contents of this file are subject to the terms of the
+# Common Development and Distribution License (the "License").
+# You may not use this file except in compliance with the License.
+#
+# You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
+# or http://www.opensolaris.org/os/licensing.
+# See the License for the specific language governing permissions
+# and limitations under the License.
+#
+# When distributing Covered Code, include this CDDL HEADER in each
+# file and include the License file at usr/src/OPENSOLARIS.LICENSE.
+# If applicable, add the following below this CDDL HEADER, with the
+# fields enclosed by brackets "[]" replaced with your own identifying
+# information: Portions Copyright [yyyy] [name of copyright owner]
+#
+# CDDL HEADER END
+#
+
+#
+# Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2011, Richard Lowe
+# Copyright (c) 2012 by Delphix. All rights reserved.
+# Copyright 2012 OmniTI Computer Consulting, Inc.  All rights reserved.
+# Copyright (c) 2013 RackTop Systems.
+# Copyright 2013 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2014 Garrett D'Amore <garrett@damore.org>
+#
+
+#
+# It is easier to think in terms of directory names without the ROOT macro
+# prefix.  ROOTDIRS is TARGETDIRS with ROOT prefixes.  It is necessary
+# to work with ROOT prefixes when controlling conditional assignments.
+#
+
+DIRLINKS=	$(SYM.DIRS)
+$(BUILD64)	DIRLINKS += $(SYM.DIRS64)
+
+FILELINKS= $(SYM.USRLIB)
+$(BUILD64)	FILELINKS += $(SYM.USRLIB64)
+
+TARGETDIRS=	$(DIRS)
+$(BUILD64)	TARGETDIRS += $(DIRS64)
+
+TARGETDIRS	+= $(FILELINKS) $(DIRLINKS)
+
+i386_DIRS=
+
+sparc_DIRS=
+
+DIRS= \
+	$($(MACH)_DIRS) \
+	/usr  \
+	/usr/ucb \
+	/usr/share \
+	/usr/share/man \
+	/usr/share/man/man1b
+
+sparcv9_DIRS64=
+
+amd64_DIRS64= \
+
+DIRS64= \
+	$($(MACH64)_DIRS64) 
+
+# /var/mail/:saved is built directly by the rootdirs target in
+# /usr/src/Makefile because of the colon in its name.
+
+# macros for symbolic links
+SYM.DIRS= 
+
+sparc_SYM.DIRS64=
+
+SYM.DIRS64= \
+	$($(MACH)_SYM.DIRS64) \
+
+# prepend the ROOT prefix
+
+ROOTDIRS=	$(TARGETDIRS:%=$(ROOT)%)
+
+# conditional assignments
+#
+# Target directories with non-default values for owner and group must
+# be referenced here, using their fully-prefixed names, and the non-
+# default values assigned.  If a directory is mentioned above and not
+# mentioned below, it has default values for attributes.
+#
+# The default value for DIRMODE is specified in usr/src/Makefile.master.
+#
+
+# file mode
+
+#
+# Installing a directory symlink calls for overriding INS.dir to install
+# a symlink.
+#
+$(DIRLINKS:%=$(ROOT)%):= \
+   INS.dir= -$(RM) -r $@; $(SYMLINK) $(LINKDEST) $@
+
+i386_SYM.USRLIB= 
+
+SYM.USRLIB= \
+	$($(MACH)_SYM.USRLIB)
+
+#
+# usr/src/Makefile uses INS.dir for any member of ROOTDIRS, the fact
+# these are symlinks to files has no bearing on this.
+#
+$(FILELINKS:%=$(ROOT)%):= \
+    INS.dir= -$(RM) $@; $(SYMLINK) $(REALPATH) $@
