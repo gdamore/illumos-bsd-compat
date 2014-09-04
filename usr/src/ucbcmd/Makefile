@@ -58,8 +58,6 @@ COMMON_SUBDIRS=		\
 	vipw		\
 	whereis
 
-sparc_SUBDIRS= sbcp
-
 SUBDIRS= $(COMMON_SUBDIRS) $($(MACH)_SUBDIRS)
 
 # commands messaged

@@ -35,13 +35,13 @@ include Makefile.master
 # it defines TARGETDIRS and ROOTDIRS.
 include Targetdirs
 
-COMMON_SUBDIRS=	ucbcmd man
+COMMON_SUBDIRS=	ucblib ucbcmd man
 sparc_SUBDIRS=
 i386_SUBDIRS=
 
 SUBDIRS= $(COMMON_SUBDIRS) $($(MACH)_SUBDIRS)
 
-HDRSUBDIRS=	ucbcmd
+HDRSUBDIRS=	ucblib ucbcmd
 
 CHKHDRSUBDIRS=
 

@@ -53,6 +53,7 @@ DIRS= \
 	$($(MACH)_DIRS) \
 	/usr  \
 	/usr/ucb \
+	/usr/ucblib \
 	/usr/share \
 	/usr/share/man \
 	/usr/share/man/man1b
@@ -62,6 +63,7 @@ sparcv9_DIRS64=
 amd64_DIRS64= \
 
 DIRS64= \
+	/usr/ucblib/$(MACH64) \
 	$($(MACH64)_DIRS64) 
 
 # /var/mail/:saved is built directly by the rootdirs target in

@@ -17,3 +17,4 @@ following to be installed on the build system:
 Also, you'll need the appropriate C++ and C compilers.  It should use the
 same as illumos-gate to build.
 
+You'll want to use +t as an argument to bldenv, as we don't have tools.
