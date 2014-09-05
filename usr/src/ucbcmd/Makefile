@@ -118,6 +118,7 @@ BINLINKS=		\
 	page		\
 	pagesize	\
 	printenv	\
+	ps		\
 	netstat		\
 	quota		\
 	rcp		\
@@ -146,9 +147,17 @@ BINLINKS=		\
 	whois		\
 	xstr
 
-ROOTBINLINKS = $(BINLINKS:%=$(ROOTBIN)/%)
+ETCLINKS=		\
+	chroot		\
+	fuser		\
+	link		\
+	mvdir		\
+	pwck		\
+	termcap		\
+	unlink
 
-OTHERLINKS = $(ROOTETC)/termcap
+ROOTBINLINKS = $(BINLINKS:%=$(ROOTBIN)/%)
+ROOTETCLINKS = $(ETCLINKS:%=$(ROOTETC)/%)
 
 $(S5LINK) :=		LINKDEST= bin
 $(DICTLINK) :=		LINKDEST= share/lib/dict
@@ -156,7 +165,13 @@ $(ROOTBIN)/e :=		LINKDEST= ../bin/edit
 $(ROOTBIN)/ex :=	LINKDEST= ../bin/edit
 $(ROOTBIN)/page :=	LINKDEST= ../bin/more
 $(ROOTBIN)/quota :=	LINKDEST= ../lib/fs/ufs/quota
+$(ROOTETC)/chroot :=	LINKDEST= ../usr/sbin/chroot
+$(ROOTETC)/fuser :=	LINKDEST= ../usr/sbin/fuser
+$(ROOTETC)/link :=	LINKDEST= ../usr/sbin/link
+$(ROOTETC)/mvdir :=	LINKDEST= ../usr/sbin/mvdir
+$(ROOTETC)/pwck :=	LINKDEST= ../usr/sbin/pwck
 $(ROOTETC)/termcap :=	LINKDEST= ../usr/share/lib/termcap
+$(ROOTETC)/unlink :=	LINKDEST= ../usr/sbin/unlink
 $(ROOTBIN)/vi :=	LINKDEST= ../bin/edit
 $(ROOTBIN)/view :=	LINKDEST= ../bin/edit
 $(ROOTBIN)/mail :=	LINKDEST= ../bin/mailx
@@ -181,9 +196,9 @@ bwos: $(BWOSDIRS) .WAIT $(SUBDIRS)
 $(BWOSDIRS) $(SUBDIRS): FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)
 
-rootlinks: $(S5LINK) $(DICTLINK) $(ROOTBINLINKS) $(OTHERLINKS)
+rootlinks: $(S5LINK) $(DICTLINK) $(ROOTBINLINKS) $(ROOTETCLINKS)
 
-$(S5LINK) $(DICTLINK) $(ROOTBINLINKS) $(OTHERLINKS):
+$(S5LINK) $(DICTLINK) $(ROOTBINLINKS) $(ROOTETCLINKS):
 	$(RM) $@; $(SYMLINK) $(LINKDEST) $@
 
 FRC:

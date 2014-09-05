@@ -18,37 +18,22 @@
 #
 # CDDL HEADER END
 #
+
 #
-# Copyright 2014 Garrett D'Amore <garrett@damore.org>
-#
-# Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
-# Use is subject to license terms.
+# Copyright (c) 2009, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
-PROG=
-MAILRC= Mail.rc
+# By default, mapfilechk operates on any file in the workspace
+# in which the final path segment:
+#	- Contains the word 'mapfile'
+#	- Begins with 'map.'
+#	- Ends with '.map'
+# as long as it does not have a .c or .h suffix.
+#
+# This file provides an exception mechanism for specifying files
+# that match this pattern that should be skipped.
+# 
 
-include ../Makefile.ucbcmd
-
-ROOTETCMAIL= $(ROOTETC)/mail
-ROOTETCMAILRC= $(MAILRC:%=$(ROOTETCMAIL)/%)
-
-$(ROOTETCMAILRC) :=	FILEMODE =	0644
-
-.KEEP_STATE:
-
-all: $(MAILRC)
-
-install: all $(ROOTETCMAILRC)
-
-clean:
-lint:
-_msg:
-
-$(ROOTETCMAIL):
-	$(INS.dir)
-
-$(ROOTETCMAIL)/%: % $(ROOTETCMAIL)
-	$(INS.file)
-
-include ../Makefile.ucbtarg
+syntax: glob
+exception_lists/mapfilechk
+usr/src/tools/scripts/*

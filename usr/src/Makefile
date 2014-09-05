@@ -65,7 +65,7 @@ MSGSUBDIRS=	ucbcmd
 DOMAINS=	SUNW_OST_UCBCMD 
 
 MSGDDIRS=       $(DOMAINS:%=$(MSGROOT)/%)
-MSGDIRS=        $(MSGROOT) $(MSGDDIRS) $(MSGROOT)/LC_TIME
+MSGDIRS=        $(MSGROOT) $(MSGDDIRS)
 
 all :=			TARGET= all
 install :=		TARGET= install
@@ -113,12 +113,12 @@ _msg: _msgdirs rootdirs FRC
 	done
 
 mapfiles:
-#	@cd common/mapfiles; pwd; $(MAKE) install
+	@cd common/mapfiles; pwd; $(MAKE) install
 
 clean: $(SUBDIRS) head pkg
 clobber: $(SUBDIRS) head pkg clobber_local
 clobber_local:
-#	@cd common/mapfiles; pwd; $(MAKE) clobber
+	@cd common/mapfiles; pwd; $(MAKE) clobber
 	@cd msg; pwd; $(MAKE) clobber
 
 #

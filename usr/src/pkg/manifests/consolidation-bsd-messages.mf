@@ -1,0 +1,29 @@
+#
+# This file and its contents are supplied under the terms of the
+# Common Development and Distribution License ("CDDL"), version 1.0.
+# You may only use this file in accordance with the terms of version
+# 1.0 of the CDDL.
+#
+# A full copy of the text of the CDDL should have accompanied this
+# source.  A copy of the CDDL is also available via the Internet at
+# http://www.illumos.org/license/CDDL.
+#
+
+#
+# Copyright 2014 Garrett D'Amore <garrett@damore.org>
+#
+set name=pkg.fmri value=pkg:/consolidation/bsd/messages@$(PKGVERS)
+set name=pkg.description \
+    value="Localizable messages for SunOS 4.x compatibility consolidation"
+set name=pkg.summary value="Localizable UCB messages"
+set name=info.classification \
+    value=oprg.opensolaris.category.2008:Development/System
+set name=org.opensolaris.nodepend value=true
+set name=variant.arch value=$(ARCH)
+dir path=usr group=sys
+dir path=usr/lib
+dir path=usr/lib/locale
+dir path=usr/lib/locale/C
+dir path=usr/lib/locale/C/LC_MESSAGES
+file path=usr/lib/locale/C/LC_MESSAGES/SUNW_OST_UCBCMD.po group=sys
+license lic_CDDL license=lic_CDDL

@@ -18,37 +18,25 @@
 #
 # CDDL HEADER END
 #
+
 #
-# Copyright 2014 Garrett D'Amore <garrett@damore.org>
-#
-# Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
-# Use is subject to license terms.
+# Copyright (c) 2009, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
-PROG=
-MAILRC= Mail.rc
+# This file provides exceptions to the usual rules applied to shared
+# objects by interface_cmp. All strings are Perl regular expressions
+# that are compared to file, version, and symbol names. In addition
+# to the standard Perl syntax, there is one extension:
+#
+#	MACH(dir)
+#
+# is expanded into a regular expression that matches the given
+# directory, or a 64-bit subdirectory of the directory with the
+# name of a 64-bit architecture. For example, MACH(lib) will match
+# any of the following:
+#
+#	lib
+#	lib/amd64
+#	lib/sparcv9
+# 
 
-include ../Makefile.ucbcmd
-
-ROOTETCMAIL= $(ROOTETC)/mail
-ROOTETCMAILRC= $(MAILRC:%=$(ROOTETCMAIL)/%)
-
-$(ROOTETCMAILRC) :=	FILEMODE =	0644
-
-.KEEP_STATE:
-
-all: $(MAILRC)
-
-install: all $(ROOTETCMAILRC)
-
-clean:
-lint:
-_msg:
-
-$(ROOTETCMAIL):
-	$(INS.dir)
-
-$(ROOTETCMAIL)/%: % $(ROOTETCMAIL)
-	$(INS.file)
-
-include ../Makefile.ucbtarg

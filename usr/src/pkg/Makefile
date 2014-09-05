@@ -45,6 +45,8 @@ SUPPRESSPKGDEP= false
 #
 PKGDEBUG= @
 
+PKGDEPEND=pkgdepend
+
 #
 # Cross platform packaging notes
 #
@@ -133,10 +135,19 @@ PKGPUBLISHER= $(PKGPUBLISHER_REDIST)
 #
 # To get these defaults, manifests should simply refer to $(PKGVERS).
 #
-PKGVERS_COMPONENT= 0.$(RELEASE)
-PKGVERS_BUILTON= $(RELEASE)
+# NOTE WELL:
+# Because of the circular dependencies in the osnet incorporation, it
+# is COMPLETELY AND UTTERLY IMPOSSIBLE TO UPDATE YOUR SYSTEM if your
+# build doesn't have the same leading components.  CHANGE THIS AT YOUR
+# OWN RISK.  If you're not using an existing distro, feel free to change
+# this in your environment.  This setting has no impact on tools that
+# don't examine packaging versions.
+#
+PKGVERS_COMPONENT= 0.5.11
+PKGVERS_BUILTON= 5.11
 PKGVERS_BRANCH= 0.$(ONNV_BUILDNUM)
 PKGVERS= $(PKGVERS_COMPONENT),$(PKGVERS_BUILTON)-$(PKGVERS_BRANCH)
+
 
 #
 # The ARCH32 and ARCH64 macros are used in the manifests to express
@@ -373,7 +384,7 @@ $(PDIR)/gendeps: $(DEP_SYNTH_PKGS) $(DEP_PKGS)
 		done; \
 	else \
 		print "Resolving dependencies"; \
-		pkgdepend -R $(PKGDEP_RESOLVE_IMAGE) resolve \
+		$(PKGDEPEND) -R $(PKGDEP_RESOLVE_IMAGE) resolve \
 		    -m $(DEP_SYNTH_PKGS) $(DEP_PKGS); \
 		for p in $(DEP_SYNTH_PKGS:%.dep=%) $(DEP_PKGS:%.dep=%); do \
 			if [ "$$(print $$p.metadata.*)" = \
@@ -513,7 +524,7 @@ $(PDIR)/%.dep: $(PDIR)/%.mog
 	@print "Generating dependencies for $(<F)"
 	$(PKGDEBUG)$(RM) $(@)
 	$(PKGDEBUG)if [ ! -f $(@:%.dep=%.nodepend) ]; then \
-		pkgdepend generate -m $(PKGDEP_TOKENS:%=-D %) $(<) \
+		$(PKGDEPEND) generate -m $(PKGDEP_TOKENS:%=-D %) $(<) \
 			$(PKGROOT) > $(@); \
 	else \
 		$(CP) $(<) $(@); \

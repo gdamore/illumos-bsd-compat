@@ -1,4 +1,3 @@
-#!/bin/sh
 #
 # CDDL HEADER START
 #
@@ -21,11 +20,27 @@
 #
 
 #
-# Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
-# Use is subject to license terms.
+# Copyright (c) 2009, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
-echo_file usr/src/ucbcmd/Makefile.ucbcmd
-echo_file usr/src/ucbcmd/Makefile.ucbtarg
-echo_file usr/src/cmd/Makefile.targ
-find_files "s.*" usr/src/common/mapfiles
+# This file provides exceptions to the usual rules applied to ELF objects by
+# check_rtime. All strings are Perl regular expressions that are compared to
+# file paths. In addition to the standard Perl syntax, there is one extension:
+#
+#	MACH(dir)
+#
+# is expanded into a regular expression that matches the given
+# directory, or a 64-bit subdirectory of the directory with the
+# name of a 64-bit architecture. For example, MACH(lib) will match
+# any of the following:
+#
+#	lib
+#	lib/amd64
+#	lib/sparcv9
+
+
+# Directory hierarchies to skip completely
+SKIP		^usr/src/			# no objects in source code
+
+NODIRECT	^usr/ucb
+

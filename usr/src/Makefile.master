@@ -234,6 +234,10 @@ MACH32=		$(MACH32_1:i386=i86)
 sparc_BUILD64=
 i386_BUILD64=
 BUILD64=	$($(MACH)_BUILD64)
+#
+# For legacy this legacy stuff, don't build 64-bit.  Nobody needs it.
+#
+BUILD64=	$(POUND_SIGN)
 
 #
 # C compiler mode. Future compilers may change the default on us,
@@ -932,13 +936,14 @@ ELFSIGN_OBJECT=	$(ELFSIGN_O)
 #
 RELEASE_MAJOR=	5
 RELEASE_MINOR=	11
+CONSOL=		illumos-bsd-compat
 RELEASE=	$(RELEASE_MAJOR).$(RELEASE_MINOR)
 VERSION=	illumos Development
 PATCHID=	$(VERSION)
 RELEASE_DATE=	release date not set
 PATCH_DATE=	$(RELEASE_DATE)
-RELEASE_CM=	"@($(POUND_SIGN))illumos $(RELEASE) $(PATCHID) $(PATCH_DATE)"
-DEV_CM=		"@($(POUND_SIGN))illumos Development: non-nightly build"
+RELEASE_CM=	"@($(POUND_SIGN))$(CONSOL) $(RELEASE) $(PATCHID) $(PATCH_DATE)"
+DEV_CM=		"@($(POUND_SIGN))$(CONSOL) Development: non-nightly build"
 
 PROCESS_COMMENT=  @?${MCS} -d -a $(RELEASE_CM) -a $(DEV_CM)
 $(RELEASE_BUILD)PROCESS_COMMENT=   @?${MCS} -d -a $(RELEASE_CM)
@@ -966,8 +971,7 @@ PKGARCHIVE=$(SRC)/../../packages/$(MACH)/nightly$(PKGARCHIVESUFFIX)
 # update an image to the resulting repositories, this must match the
 # publisher name provided to "pkg set-publisher."
 #
-PKGPUBLISHER_REDIST=	on-nightly
-PKGPUBLISHER_NONREDIST=	on-extra
+PKGPUBLISHER_REDIST=	bsd-compat-nightly
 
 #	Default build rules which perform comment section post-processing.
 #

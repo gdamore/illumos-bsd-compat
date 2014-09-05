@@ -18,37 +18,3 @@
 #
 # CDDL HEADER END
 #
-#
-# Copyright 2014 Garrett D'Amore <garrett@damore.org>
-#
-# Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
-# Use is subject to license terms.
-#
-
-PROG=
-MAILRC= Mail.rc
-
-include ../Makefile.ucbcmd
-
-ROOTETCMAIL= $(ROOTETC)/mail
-ROOTETCMAILRC= $(MAILRC:%=$(ROOTETCMAIL)/%)
-
-$(ROOTETCMAILRC) :=	FILEMODE =	0644
-
-.KEEP_STATE:
-
-all: $(MAILRC)
-
-install: all $(ROOTETCMAILRC)
-
-clean:
-lint:
-_msg:
-
-$(ROOTETCMAIL):
-	$(INS.dir)
-
-$(ROOTETCMAIL)/%: % $(ROOTETCMAIL)
-	$(INS.file)
-
-include ../Makefile.ucbtarg

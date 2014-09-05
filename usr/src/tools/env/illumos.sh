@@ -21,6 +21,7 @@
 # Copyright (c) 2005, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2010, 2011 Nexenta Systems, Inc.  All rights reserved.
 # Copyright 2012 Joshua M. Clulow <josh@sysmgr.org>
+# Copyright 2014 Garrett D'Amore <garrett@damore.org>
 #
 
 # Configuration variables for the runtime environment of the nightly
@@ -37,14 +38,14 @@
 #       sends mail on completion (-m and the MAILTO variable)
 #       creates packages for PIT/RE (-p)
 #       checks for changes in ELF runpaths (-r)
-#       build and use this workspace's tools in $SRC/tools (-t)
+#       do not build or use this workspace's tools in $SRC/tools (+t)
 #
 # - This file is sourced by "bldenv.sh" and "nightly.sh" and should not 
 #   be executed directly.
 # - This script is only interpreted by ksh93 and explicitly allows the
 #   use of ksh93 language extensions.
 #
-export NIGHTLY_OPTIONS='-FnCDAlmprt'
+export NIGHTLY_OPTIONS='-FnCDAlmpr +t'
 
 #
 # -- PLEASE READ THIS --
@@ -109,7 +110,7 @@ ONBLD_BIN='/opt/onbld/bin'
 export PARENT_WS=''
 
 # CLONE_WS is the workspace nightly should do a bringover from.
-export CLONE_WS='ssh://anonhg@hg.illumos.org/illumos-gate'
+export CLONE_WS='git@bitbucket.org:gdamore/illumos-bsd-compat.git'
 
 # The bringover, if any, is done as STAFFER.
 # Set STAFFER to your own login as gatekeeper or developer
@@ -132,15 +133,6 @@ export BUILD_PROJECT=''
 export ATLOG="$CODEMGR_WS/log"
 export LOGFILE="$ATLOG/nightly.log"
 export MACH="$(uname -p)"
-
-#
-#  The following two macros are the closed/crypto binaries.  Once
-#  Illumos has totally freed itself, we can remove these references.
-#
-# Location of encumbered binaries.
-export ON_CLOSED_BINS="$CODEMGR_WS/closed"
-# Location of signed cryptographic binaries.
-export ON_CRYPTO_BINS="$CODEMGR_WS/on-crypto.$MACH.tar.bz2"
 
 # REF_PROTO_LIST - for comparing the list of stuff in your proto area
 # with. Generally this should be left alone, since you want to see differences
@@ -205,7 +197,7 @@ export UT_NO_USAGE_TRACKING='1'
 # exists to make it easier to test new versions of the compiler.
 export BUILD_TOOLS='/opt'
 export ONBLD_TOOLS='/opt/onbld'
-export SPRO_ROOT='/opt/SUNWspro'
+export SPRO_ROOT='/opt/sunstudio12.1'
 export SPRO_VROOT="$SPRO_ROOT"
 
 # This goes along with lint - it is a series of the form "A [y|n]" which
@@ -226,3 +218,10 @@ export SPRO_VROOT="$SPRO_ROOT"
 # POST_NIGHTLY can be any command to be run at the end of nightly.  See
 # nightly(1) for interactions between environment variables and this command.
 #POST_NIGHTLY=
+
+# Workaround for busted pkgdepend.
+# PKGDEPEND=/usr/bin/puname -S pkgdepend
+
+# This is optional, but we don't need shadow compilation.  Only reenable
+# if you have a suitable version of Solaris Studio installed.
+export CW_NO_SHADOW=1

@@ -32,7 +32,6 @@
 SUBDIRS= libucb librpcsoc libdbm libtermcap
 # libcurses needs libtermcap and libucb
 SUBDIRS2= libcurses
-sparc_SUBDIR= ../lib/libbc 
 BWOSDIRS=
 
 all:=		TARGET= all
