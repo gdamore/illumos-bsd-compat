@@ -122,6 +122,7 @@ BINLINKS=		\
 	quota		\
 	rcp		\
 	rdate		\
+	rdist		\
 	renice		\
 	rlogin		\
 	rsh		\
